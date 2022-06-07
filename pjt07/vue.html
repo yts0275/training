@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Test</title>
+</head>
+<body>
+  <div id="app">
+    <p>메뉴 랜덤 선택</p>
+    <button @click="menu_select">Pick One</button>
+    <p>{{ menu }}</p>
+  </div>
+  <hr/>
+
+  <div id="app2">
+    <p>로또 번호 생성기</p>
+    <button @click="create_numbers">Get Luckey Numbers</button>
+    <p>{{ numbers }}</p>
+  </div>
+
+  <hr/>
+
+  <div id="app3">
+    <p>computed 써보기</p>
+    <button @click="reverse">뒤집기</button>
+    <input v-model="message"></input>
+    <p>메시지 : {{ reversedMessage }}</p>
+  </div>
+
+  <hr/>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        menu: '무슨 메뉴가 선택될까요?',
+        menus: ['국밥', '김치찌개', '순두부찌개', '짜장면', '라면']
+      },
+      methods: {
+        menu_select: function(){
+          var num = Math.floor(Math.random() * 5);
+          this.menu = this.menus[num];
+        }
+      }
+    })
+
+    const app2 = new Vue({
+      el: "#app2",
+      data: {
+        numbers: []
+      },
+      methods: {
+        create_numbers: function(){
+          this.numbers = []
+          while(this.numbers.length < 6){
+            var num = Math.floor(Math.random() * 45) + 1;
+            if(!this.numbers.includes(num)){
+              this.numbers.push(num);
+            }
+          }
+          this.numbers.sort((a,b) => {
+            return a - b;
+          })
+        }
+      }
+    })
+
+    const app3 = new Vue({
+      el: "#app3",
+      data: {
+        message: '뒤집기 전 메세지',
+      },
+      computed: {
+        reversedMessage(){
+          return this.message.split('').reverse().join('')
+        },
+      },
+      methods: {
+        reverse(){
+          this.message = this.message.split('').reverse().join('');
+        }
+      }
+    })
+  </script>
+</body>
+</html>

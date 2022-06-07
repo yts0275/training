@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block context %}
+  <h1>Login Page</h1>
+
+  <form action={% url 'accounts:login' %} method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">로그인</button>
+  </form>
+{% endblock context %}

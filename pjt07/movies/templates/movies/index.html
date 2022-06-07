@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block context %}
+
+  <h1>HomePage</h1>
+  {% if user.is_authenticated %}
+    <a href={% url 'movies:create' %}>글 작성하기</a>
+  {% endif %}
+  <hr/>
+
+  {% for movie in movies %}
+    [ <a href={% url 'movies:detail' movie.id %}>{{ movie.title }}</a> ]
+    {% if user.is_authenticated and movie.user_id == user %}
+      <a href={% url 'movies:update' movie.id %} style="float:right">[ 수정하기 ]</a>
+      <a href={% url 'movies:delete' movie.id %} style="float:right">[ 삭제하기 ]</a>
+    {% endif %}
+
+    <hr/>
+  {% endfor %}
+{% endblock context %}
