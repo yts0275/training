@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block context %}
+  <h1>Create Page</h1>
+
+  <hr/>
+
+  <form action={% url 'movies:create' %} method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">영화 추가</button>
+  </form>
+
+{% endblock context %}

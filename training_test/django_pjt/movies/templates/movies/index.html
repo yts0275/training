@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block context %}
+  <h1>Index Page</h1>
+
+  <a href={% url 'movies:create' %}>[ 영화 추가하기 ]</a>
+  
+  <hr/>
+
+  {% for movie in movies %}
+    <a href={% url 'movies:update' movie.id %} style="float:right">[ 수정하기 ]</a>
+    <a href={% url 'movies:delete' movie.id %} style="float:right">[ 삭제하기 ]</a>
+    <p><a href={% url 'movies:detail' movie.id %}>[ {{ movie.title }} ]</a></p>
+
+    <hr/>
+  {% endfor %}
+{% endblock context %}

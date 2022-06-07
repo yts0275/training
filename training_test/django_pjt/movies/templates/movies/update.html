@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block context %}
+  <h1>Update Page</h1>
+
+  <hr/>
+
+  <form action={% url 'movies:update' movie.id %} method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">내용 수정</button>
+  </form>
+
+{% endblock context %}
