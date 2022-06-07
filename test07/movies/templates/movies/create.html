@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block context %}
+  <h1>Create Page</h1>
+
+  <hr/>
+
+  <form action={% url 'movies:create' %} method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">작성하기</button>
+  </form>
+
+  <a href={% url 'movies:index' %}>뒤로가기</a>
+{% endblock context %}

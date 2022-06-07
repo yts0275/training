@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block context %}
+  <h1>Detail Page</h1>
+
+  <hr/>
+
+  <p>글번호 : {{ movie.id }}</p>
+  <p>제목 : {{ movie.title }}</p>
+  <p>내용 : {{ movie.description }}</p>
+
+  <a href={% url 'movies:update' movie.id %}>[ 수정하기 ]</a>
+  <a href={% url 'movies:delete' movie.id %}>[ 삭제하기 ]</a>
+  <a href={% url 'movies:index' %}>[ 뒤로가기 ]</a>
+
+  <hr/>
+
+  <h2>댓글 목록</h2>
+  {% for comment in comments %}
+    <a href={% url 'movies:comment_delete' movie.id comment.id %} style="float:right">[ 삭제하기 ]</a>
+    <p>{{ comment.id }} : {{ comment.content }}</p>
+  {% endfor %}
+
+  <form action={% url 'movies:comment_create' movie.id %} method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">댓글쓰기</button>
+  </form>
+
+{% endblock context %}
